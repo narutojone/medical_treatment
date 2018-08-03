@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  minimum_percentage: 1.5
+  maximum_percentage: 1.5
+  description: MyText
+  classes: MyString
+
+two:
+  name: MyString
+  minimum_percentage: 1.5
+  maximum_percentage: 1.5
+  description: MyText
+  classes: MyString
