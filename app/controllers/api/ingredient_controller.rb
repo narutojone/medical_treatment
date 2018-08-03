@@ -1,8 +1,8 @@
 module Api
   class IngredientController < ApplicationController
     def index
-      formulations = Formulation.order('name');
-      render json: { status: 'SUCCESS', message: 'Loaded Foumulations', data: formulations },status: :ok
+      ingredients = Ingredient.order('name');
+      render json: { status: 'SUCCESS', message: 'Loaded Ingredients', data: ingredients },status: :ok
     end
   end
 end
