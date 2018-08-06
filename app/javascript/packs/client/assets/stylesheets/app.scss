@@ -1,1 +1,22 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+.ingredient-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  
+  .minmax-label {
+    color: #000;    
+  }
+}
+
+.btn-submit {
+  margin-top: 10px;
+}
+
+.ingredients-name {
+  font-size: 16px;
+  border-bottom: 1px solid #cfd4da;
+  margin: 25px 0;
+  line-height: 30px;
+}

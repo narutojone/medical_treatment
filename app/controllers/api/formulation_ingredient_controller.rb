@@ -1,8 +1,12 @@
 module Api
   class FormulationIngredientController < ApplicationController
     def index
-      formulationsIngredients = FormulationIngredient.order('percentage');
-      render json: { status: 'SUCCESS', message: 'Loaded FoumulationIngredients', data: formulationsIngredients },status: :ok
+      formulationsIngredients = Ingredient.order('name');
+      render json: formulationsIngredients.to_json();
+    end
+    def show
+      formulationsIngredients = FormulationIngredient.select("*").joins(:ingredient).where('formulation_id = ?', params[:id])
+      render json: formulationsIngredients.to_json()
     end
   end
 end

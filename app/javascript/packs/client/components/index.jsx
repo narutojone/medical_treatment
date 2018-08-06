@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getFormulation } from '../actions';
+import { getFormulation, getIngredient } from '../actions';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class LandingPage extends React.Component {
@@ -15,12 +15,31 @@ class LandingPage extends React.Component {
       addressLine: '',
       city: '',
       state: '',
-      zip: ''
+      zip: '',
+      formulation: '',
+
+      formulations: [],
+      ingredients: []
     }
   }
 
   componentDidMount() {
     this.props.getFormulation()
+    this.props.getIngredient()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(this.state.formulations, nextProps.formulations)) {
+      this.setState({
+        formulations: nextProps.formulations
+      })
+    }
+
+    if (!_.isEqual(this.state.ingredients, nextProps.ingredients)) {
+      this.setState({
+        ingredients: nextProps.ingredients
+      })
+    }
   }
 
   handleSubmit(e) {
@@ -33,7 +52,26 @@ class LandingPage extends React.Component {
     })
   }
 
+  handleFormulationChange(event) {
+    const formulationId = event.target.value
+    this.props.getIngredient(formulationId)
+    this.setState({
+      formulation: formulationId
+    })
+  }
+
+  handleChengeIngredients(index, event) {
+    const { ingredients } = this.state
+    const ingredient = ingredients[index]
+    ingredient.percentage = event.target.value
+    this.setState({
+      ingredients
+    })
+  }
+
   render() {
+    const { name, addressLine, city, state, zip, formulation, formulations, ingredients } = this.state
+    console.log(ingredients)
     return(
       <Container>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -41,7 +79,7 @@ class LandingPage extends React.Component {
             <Label>Name</Label>
             <Input
               placeholder="Name"
-              value={this.state.name}
+              value={name}
               onChange={e => this.handleChangeValue('name', e)}
               required
             />
@@ -50,7 +88,7 @@ class LandingPage extends React.Component {
             <Label>Address Line</Label>
             <Input
               placeholder="Address Line"
-              value={this.state.addressLine}
+              value={addressLine}
               onChange={e => this.handleChangeValue('addressLine', e)}
               required
             />
@@ -61,7 +99,7 @@ class LandingPage extends React.Component {
                 <Label>City</Label>
                 <Input
                   placeholder="City"
-                  value={this.state.city}
+                  value={city}
                   onChange={e => this.handleChangeValue('city', e)}
                   required
                 />
@@ -72,7 +110,7 @@ class LandingPage extends React.Component {
                 <Label>State</Label>
                 <Input
                   placeholder="State"
-                  value={this.state.state}
+                  value={state}
                   onChange={e => this.handleChangeValue('state', e)}
                   required
                 />
@@ -83,7 +121,7 @@ class LandingPage extends React.Component {
                 <Label>Zip</Label>
                 <Input
                   placeholder="Zip"
-                  value={this.state.zip}
+                  value={zip}
                   onChange={e => this.handleChangeValue('zip', e)}
                   required
                 />
@@ -94,29 +132,50 @@ class LandingPage extends React.Component {
             <Label>Formulation</Label>
             <Input
               type="select"
-              onChange={(e) => console.log(e.target.value)}
+              value={formulation}
+              onChange={(e) => this.handleFormulationChange(e)}
             >
               <option value="">Custom</option>
-              {!_.isEmpty(this.props.formulations) &&
-                this.props.formulations.map(item => (
+              {!_.isEmpty(formulations) &&
+                formulations.map(item => (
                   <option key={item.id} value={item.id}>{item.name}</option>
               ))}
             </Input>
           </FormGroup>
-          <Button>Submit</Button>
+          <h3 className="ingredients-name">Ingredients</h3>
+          <Row>
+          {!_.isEmpty(ingredients) &&
+            ingredients.map((item, index) => (
+              <Col key={`ingredient-${item.id}`} sm={4}>
+                <div className="ingredient-labels">
+                  <Label>{item.name}</Label>
+                  <Label className="minmax-label">{`${item.minimum_percentage} - ${item.maximum_percentage}`}</Label>
+                </div>
+                <Input
+                  type="number"
+                  value={item.percentage}
+                  placeholder={item.name}
+                  onChange={e => this.handleChengeIngredients(index, e)}
+                />
+              </Col>
+            ))
+          }
+          </Row>
+          <Button className="btn-submit" color="primary">Submit</Button>
         </Form>
       </Container>
     )
   }
 }
 
-const mapStateToProps = ({ formulations }) => {
-  return { formulations }
+const mapStateToProps = ({ formulations, ingredients }) => {
+  return { formulations, ingredients }
 }
 
 const mapDispatchToProps = (dispatch) => {
  return {
-   getFormulation: () => dispatch(getFormulation())
+   getFormulation: () => dispatch(getFormulation()),
+   getIngredient: (id = "") => dispatch(getIngredient(id))
  }
 }
 

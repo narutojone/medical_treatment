@@ -1,5 +1,5 @@
 import * as API from '../middleware'
-import { GET_FORMULATION } from './types'
+import { GET_FORMULATION, GET_INGREDIENT } from './types'
 
 export function getFormulation() {
   return dispatch => {
@@ -9,5 +9,15 @@ export function getFormulation() {
           data: res.data
         })
     )
+  }
+}
+
+export function getIngredient(id) {
+  return dispatch => {
+    API.getIngredient(id)
+      .then(res => dispatch({
+        type: GET_INGREDIENT,
+        data: res.data
+      }))
   }
 }

@@ -7,5 +7,9 @@ const headers = {
 }
 
 export const getFormulation = () =>
-  axios.get(`${api}/formulation`, {headers})
+  axios.get(`${api}/formulation`, { headers })
     .then(res => res)    
+
+export const getIngredient = (id) =>
+  axios.get(`${api}/formulation_ingredient/${id}`, { headers })
+    .then(res => res)
