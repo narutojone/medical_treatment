@@ -21,3 +21,10 @@ export function getIngredient(id) {
       }))
   }
 }
+
+export function generatePDF(data) {
+  return dispatch => {
+    API.generatePDF(data)
+      .then(res => res)
+  }
+}

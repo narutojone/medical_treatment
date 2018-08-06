@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getFormulation, getIngredient } from '../actions';
+import { getFormulation, getIngredient, generatePDF } from '../actions';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class LandingPage extends React.Component {
@@ -44,6 +44,28 @@ class LandingPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
+    const { name, addressLine, city, state, zip, formulation, formulations, ingredients } = this.state
+    const address = [addressLine, city, state, zip].filter(value => !!value).join(', ')
+    let formulationValue = 'Custom'
+    if (formulation !== '') {
+      formulationValue = formulations.find(item => item.id === parseInt(formulation)).name      
+    }
+
+    const correctIngredients = ingredients.filter(item => item.percentage && item.percentage > 0)
+
+    let ingredientsText = correctIngredients.reduce((accumulator, currentValue) => {
+      return accumulator + `<p>${currentValue.name}: ${currentValue.percentage}%</p>`
+    }, '')
+
+    const params = {
+      name,
+      address,
+      formulation: formulationValue,
+      ingredients: ingredientsText
+    }
+
+    this.props.generatePDF(params)
   }
 
   handleChangeValue(name, event) {
@@ -175,7 +197,8 @@ const mapStateToProps = ({ formulations, ingredients }) => {
 const mapDispatchToProps = (dispatch) => {
  return {
    getFormulation: () => dispatch(getFormulation()),
-   getIngredient: (id = "") => dispatch(getIngredient(id))
+   getIngredient: (id = "") => dispatch(getIngredient(id)),
+   generatePDF: (data) => dispatch(generatePDF(data))
  }
 }
 
