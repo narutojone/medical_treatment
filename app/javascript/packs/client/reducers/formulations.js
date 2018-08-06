@@ -9,9 +9,9 @@ function formulations (state = initialState, action) {
   switch (action.type) {
 
     case GET_FORMULATION :
-    return {
+    return [
       ...data
-    }
+    ]
 
     default :
       return state
