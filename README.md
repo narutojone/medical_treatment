@@ -16,4 +16,5 @@ Things you may want to cover:
   * `brew install yarn`
   * `yarn`
   * `foreman start -f Procfile.dev -p 3000`
+  
 # medical_treatment
