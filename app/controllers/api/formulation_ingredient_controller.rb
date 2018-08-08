@@ -41,6 +41,8 @@ module Api
       </html>"
 
       PDFKit.new(html, :page_size => 'A4').to_file("#{params[:name]}.pdf")
+
+      render "/#{params[:name]}.pdf"
     end
   end
 end
