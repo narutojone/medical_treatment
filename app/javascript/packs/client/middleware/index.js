@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const api = "http://localhost:3000/api"
+const url = window.location.href
+const arr = url.split("/");
+const api =  `${arr[0]}//${arr[2]}/api`
 
 const headers = {
   'Accept': 'application/json'

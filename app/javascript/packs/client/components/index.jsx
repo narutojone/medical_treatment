@@ -26,8 +26,7 @@ class LandingPage extends React.Component {
   componentDidMount() {
     this.props.getFormulation()
     this.props.getIngredient()
-    const host = window.location.hostname;
-    console.log('host', host)
+    const url = window.location.href
   }
 
   componentWillReceiveProps(nextProps) {
