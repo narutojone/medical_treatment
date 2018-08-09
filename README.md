@@ -11,10 +11,12 @@ Things you may want to cover:
   * `rvm install ruby`
   * `gem install rails`
   * `gem install foreman`
-  * `rake db:create`
-  * `rake db:migrate`
+  * `gem install bundler`
   * `brew install yarn`
+  * `bundle install`
   * `yarn`
+  * `rake db:create`
+  * `rake db:migrate db:seed`
   * `foreman start -f Procfile.dev -p 3000`
   
 # medical_treatment
