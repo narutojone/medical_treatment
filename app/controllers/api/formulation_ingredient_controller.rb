@@ -40,9 +40,9 @@ module Api
         </body>
       </html>"
 
-      PDFKit.new(html, :page_size => 'A4').to_file("#{params[:name]}.pdf")
+      PDFKit.new(html, :page_size => 'A4').to_file("public/pdf/#{params[:name]}.pdf")
 
-      render "/#{params[:name]}.pdf"
+      render json: { url: "/#{params[:name]}.pdf" }
     end
   end
 end

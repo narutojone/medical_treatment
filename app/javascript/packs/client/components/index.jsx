@@ -17,7 +17,6 @@ class LandingPage extends React.Component {
       state: '',
       zip: '',
       formulation: '',
-
       formulations: [],
       ingredients: []
     }
@@ -40,6 +39,10 @@ class LandingPage extends React.Component {
       this.setState({
         ingredients: nextProps.ingredients
       })
+    }
+
+    if (nextProps.pdfUrl !== '' && nextProps.pdfUrl !== this.props.pdfUrl) {
+      window.open(`/pdf${nextProps.pdfUrl}`, '_blank')
     }
   }
 
@@ -192,7 +195,11 @@ class LandingPage extends React.Component {
 }
 
 const mapStateToProps = ({ formulations, ingredients }) => {
-  return { formulations, ingredients }
+  return {
+    formulations: formulations.items || [],
+    ingredients: ingredients.items || [],
+    pdfUrl: ingredients.url || ''
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

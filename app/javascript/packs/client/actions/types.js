@@ -1,2 +1,3 @@
 export const GET_FORMULATION = 'GET_FORMULATION'
 export const GET_INGREDIENT = 'GET_INGREDIENT'
+export const GET_PDF_URL = 'GET_PDF_URL'

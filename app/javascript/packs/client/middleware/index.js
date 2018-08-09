@@ -16,6 +16,8 @@ export const getIngredient = (id) =>
   axios.get(`${api}/formulation_ingredient/${id}`, { headers })
     .then(res => res)
 
-export const generatePDF = (data) =>
-  axios.post(`${api}/formulation_ingredient`, { ...data }, { headers })
+export const generatePDF = (data) => {
+  console.log(data)
+  return axios.post(`${api}/formulation_ingredient`, { ...data }, { headers })
   .then(res => res)
+}

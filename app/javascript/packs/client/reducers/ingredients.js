@@ -1,5 +1,6 @@
 import {
   GET_INGREDIENT,
+  GET_PDF_URL
 } from '../actions/types'
 
 const initialState = {}
@@ -9,9 +10,17 @@ function ingredients (state = initialState, action) {
   switch (action.type) {
 
     case GET_INGREDIENT :
-    return [
-      ...data
-    ]
+      return {
+        ...state,
+        items: data,
+        url: ''
+      }
+
+    case GET_PDF_URL :
+      return {
+        ...state,
+        url: data.url
+      }
 
     default :
       return state
