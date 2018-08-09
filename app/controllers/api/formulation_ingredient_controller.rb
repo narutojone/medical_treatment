@@ -22,11 +22,11 @@ module Api
               margin: 0;
               padding: 0;
               background-color: white;
-              font-size: 50px;
+              font-size: 16px;
               font-family: Georgia, serif;
             }
             .header {
-              font-size: 70px;
+              font-size: 22px;
             }
           </style>
         </head>
