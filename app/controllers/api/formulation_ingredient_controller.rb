@@ -32,17 +32,19 @@ module Api
         </head>
         <body>
           <p class='header'>Medical Treatment</p>
-          <p>Name: #{params[:name]}</p>
-          <p>Address: #{params[:address]}</p>
-          <p>Formulation: #{params[:formulation]}</p>
-          <p>Ingredients:</p>
+          <p><b>Name:</b> #{params[:name]}</p>
+          <p><b>Address:</b> #{params[:address]}</p>
+          <p><b>Formulation:</b> #{params[:formulation]}</p>
+          <p><b>Ingredients:</b></p>
           #{params[:ingredients]}
         </body>
       </html>"
 
-      PDFKit.new(html, :page_size => 'A4').to_file("public/pdf/#{params[:name]}.pdf")
+      currentTime = Time.now.strftime("%d-%m-%Y %H:%M:%S")
+      
+      PDFKit.new(html, :page_size => 'A4').to_file("public/pdf/#{params[:name]}#{currentTime}.pdf")
 
-      render json: { url: "/#{params[:name]}.pdf" }
+      render json: { url: "/#{params[:name]}#{currentTime}.pdf" }
     end
   end
 end

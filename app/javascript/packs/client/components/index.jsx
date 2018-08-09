@@ -187,7 +187,7 @@ class LandingPage extends React.Component {
             ))
           }
           </Row>
-          <Button className="btn-submit" color="primary">Submit</Button>
+          <Button className="btn-submit" color="primary">Create PDF</Button>
         </Form>
       </Container>
     )
